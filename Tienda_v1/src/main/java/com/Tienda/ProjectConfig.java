@@ -88,7 +88,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/reportes/**"
                 ).hasRole("ADMIN")
                 .requestMatchers(
-                        "/producto/listado",
+                        "/producto/listado",  
                         "/categoria/listado",
                         "/usuario/listado"
                 ).hasAnyRole("ADMIN", "VENDEDOR")
@@ -99,10 +99,10 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .loginPage("/login").permitAll())
                 .logout((logout) -> logout.permitAll());
         return http.build();
-    }
+    } 
 
-/* El siguiente método se utiliza para completar la clase no es 
-    realmente funcional, la próxima semana se reemplaza con usuarios de BD */    
+///* El siguiente método se utiliza para completar la clase no es 
+//    realmente funcional, la próxima semana se reemplaza con usuarios de BD */    
 //    @Bean
 //    public UserDetailsService users() {
 //        UserDetails admin = User.builder()
