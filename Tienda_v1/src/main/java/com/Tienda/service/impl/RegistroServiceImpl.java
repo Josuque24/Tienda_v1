@@ -1,6 +1,9 @@
-
-package com.Tienda.service.impl;
-
+/*
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+*/
+package com.tienda.service.impl;
+ 
 import com.Tienda.domain.Usuario;
 import com.Tienda.service.CorreoService;
 import com.Tienda.service.RegistroService;
@@ -15,25 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
-//import com.Tienda.domain.Usuario;
-//import com.Tienda.service.CorreoService;
-//import com.Tienda.service.RegistroService;
-//import com.Tienda.service.UsuarioService;
-//import jakarta.mail.MessagingException;
-//import java.util.Locale;
-//import lombok.Value;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.MessageSource;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.stereotype.Service;
-//import org.springframework.ui.Model;
-//import org.springframework.web.multipart.MultipartFile;
-
-
+/**
+*
+* @author erick
+*/
 @Service
-public class RegistroServiceImpl implements RegistroService {
+public class RegistroServiceImpl implements RegistroService{
     @Autowired
     private CorreoService correoService;
     @Autowired
@@ -42,7 +32,7 @@ public class RegistroServiceImpl implements RegistroService {
     private MessageSource messageSource;  //creado en semana 4...
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
-
+ 
     @Override
     public Model activar(Model model, String username, String clave) {
         Usuario usuario = 
@@ -64,12 +54,12 @@ public class RegistroServiceImpl implements RegistroService {
         }
         return model;
     }
-
+ 
     @Override
     public void activar(Usuario usuario, MultipartFile imagenFile) {
         var codigo = new BCryptPasswordEncoder();
         usuario.setPassword(codigo.encode(usuario.getPassword()));
-
+ 
         if (!imagenFile.isEmpty()) {
             usuarioService.save(usuario, false);
             usuario.setRutaImagen(
@@ -80,7 +70,7 @@ public class RegistroServiceImpl implements RegistroService {
         }
         usuarioService.save(usuario, true);
     }
-
+ 
     @Override
     public Model crearUsuario(Model model, Usuario usuario) 
             throws MessagingException {
@@ -119,7 +109,7 @@ public class RegistroServiceImpl implements RegistroService {
                 mensaje);
         return model;
     }
-
+ 
     @Override
     public Model recordarUsuario(Model model, Usuario usuario) 
             throws MessagingException {
@@ -158,7 +148,7 @@ public class RegistroServiceImpl implements RegistroService {
                 mensaje);
         return model;
     }
-
+ 
     private String demeClave() {
         String tira = "ABCDEFGHIJKLMNOPQRSTUXYZabcdefghijklmnopqrstuvwxyz0123456789_*+-";
         String clave = "";
@@ -167,11 +157,11 @@ public class RegistroServiceImpl implements RegistroService {
         }
         return clave;
     }
-
+ 
     //Ojo cómo le lee una informacion del application.properties
     @Value("${servidor.http}")
     private String servidor;
-
+ 
     private void enviaCorreoActivar(Usuario usuario, String clave) throws MessagingException {
         String mensaje = messageSource.getMessage(
                 "registro.correo.activar", 
@@ -185,7 +175,7 @@ public class RegistroServiceImpl implements RegistroService {
                 null, Locale.getDefault());
         correoService.enviarCorreoHtml(usuario.getCorreo(), asunto, mensaje);
     }
-
+ 
     private void enviaCorreoRecordar(Usuario usuario, String clave) throws MessagingException {
         String mensaje = messageSource.getMessage(""
                 + "registro.correo.recordar", 
