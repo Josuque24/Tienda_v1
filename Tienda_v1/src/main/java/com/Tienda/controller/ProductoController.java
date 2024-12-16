@@ -1,6 +1,6 @@
 package com.tienda.controller;
 
-import com.tienda.domain.Producto;
+import com.Tienda.domain.Producto;
 import com.tienda.service.CategoriaService;
 import com.tienda.service.ProductoService;
 import com.tienda.service.impl.FirebaseStorageServiceImpl;

@@ -1,4 +1,4 @@
-package com.tienda.domain;
+package com.Tienda.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -14,19 +14,22 @@ public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name="id_producto")
-    private Long idProducto;
+    private Long idProducto; //en la tabla tenemos un primary key = idProducto
     private String descripcion;
     private String rutaImagen;
     private boolean activo;
     private String detalle;
     private double precio;
     private int existencias;
-    //private long idCategoria;
-            
+    //private Long idCategoria; -> reemplazar @manytoone
+    
     @ManyToOne
     @JoinColumn(name="id_categoria")
     Categoria categoria;
     
+    
+    
+
     public Producto() {
     }
 
